@@ -33,9 +33,11 @@ class ExpenseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        $expense = Expense::findOrFail($id);
+
+        return response()->json($expense, Response::HTTP_OK);
     }
 
     /**
