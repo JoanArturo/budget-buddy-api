@@ -43,9 +43,13 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SaveExpenseRequest $request, string $id): JsonResponse
     {
-        //
+        $expense = Expense::findOrFail($id);
+
+        $expense->update($request->validated());
+
+        return response()->json($expense, Response::HTTP_OK);
     }
 
     /**
