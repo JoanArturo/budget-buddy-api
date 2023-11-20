@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveExpenseRequest;
 use App\Models\Expense;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ExpenseController extends Controller
@@ -55,8 +54,12 @@ class ExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        //
+        $expense = Expense::findOrFail($id);
+
+        $expense->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
